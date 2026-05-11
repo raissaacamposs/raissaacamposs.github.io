@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Vida Plena</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --teal: #0a7c6e;
+    --teal-light: #12a090;
+    --teal-pale: #e8f7f5;
+    --gold: #c8963e;
+    --text: #1a2332;
+    --muted: #6b7a8d;
+    --bg: #f8fdfb;
+    --white: #ffffff;
+    --border: #e0eeeb;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 72px;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-icon {
+    width: 40px; height: 40px; background: var(--teal);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .logo-name { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--text); font-weight: 600; }
+  .logo-name span { display: block; font-family: 'Inter', sans-serif; font-size: 11px; color: var(--muted); font-weight: 400; letter-spacing: 1px; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-btn {
+    background: var(--teal); color: #fff; padding: 11px 26px;
+    border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: background .2s, transform .2s;
+  }
+  .nav-btn:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; padding: 120px 60px 80px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    background: linear-gradient(135deg, var(--bg) 0%, #d4efe9 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,124,110,0.08) 0%, transparent 70%);
+    top: -100px; right: -100px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--teal-pale); border: 1px solid rgba(10,124,110,0.2);
+    padding: 8px 16px; border-radius: 100px;
+    font-size: 13px; color: var(--teal); font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.1; letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+  .hero h1 em { color: var(--teal); font-style: normal; }
+  .hero p { color: var(--muted); font-size: 17px; line-height: 1.8; margin-bottom: 40px; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-teal {
+    background: var(--teal); color: #fff;
+    padding: 16px 32px; border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+    transition: background .2s, transform .2s;
+    box-shadow: 0 8px 24px rgba(10,124,110,0.25);
+  }
+  .btn-teal:hover { background: var(--teal-light); transform: translateY(-2px); }
+  .btn-outline {
+    border: 2px solid var(--teal); color: var(--teal);
+    padding: 14px 32px; border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+    transition: background .2s;
+  }
+  .btn-outline:hover { background: var(--teal-pale); }
+
+  .hero-image {
+    background: linear-gradient(135deg, #0a7c6e, #12a090);
+    border-radius: 24px; height: 480px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 120px; position: relative; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(10,124,110,0.3);
+  }
+  .hero-image::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+    background: linear-gradient(0deg, rgba(0,0,0,0.15), transparent);
+  }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 48px;
+    padding-top: 40px; border-top: 1px solid var(--border);
+  }
+  .hstat-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--teal); font-weight: 700; }
+  .hstat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* ESPECIALIDADES */
+  .section { padding: 100px 60px; }
+  .sec-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); font-weight: 600; margin-bottom: 12px; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; }
+  .sec-sub { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 520px; }
+
+  .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .spec-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .spec-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(10,124,110,0.1); }
+  .spec-icon { font-size: 36px; margin-bottom: 20px; }
+  .spec-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+  .spec-desc { color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .spec-link { display: inline-flex; align-items: center; gap: 6px; color: var(--teal); font-size: 13px; font-weight: 600; margin-top: 20px; text-decoration: none; }
+
+  /* AGENDAMENTO */
+  .agenda-section { background: var(--teal); padding: 100px 60px; }
+  .agenda-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .agenda-text .sec-label { color: rgba(255,255,255,0.6); }
+  .agenda-text .sec-title { color: #fff; }
+  .agenda-text p { color: rgba(255,255,255,0.75); font-size: 16px; line-height: 1.8; margin-top: 16px; }
+
+  .agenda-form { background: #fff; border-radius: 20px; padding: 40px; box-shadow: 0 30px 80px rgba(0,0,0,0.15); }
+  .form-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; margin-bottom: 28px; color: var(--text); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .form-group input, .form-group select {
+    width: 100%; padding: 13px 16px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text);
+    background: var(--bg); outline: none; transition: border-color .2s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--teal); }
+  .form-submit {
+    width: 100%; background: var(--teal); color: #fff;
+    border: none; padding: 15px; border-radius: 8px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: background .2s, transform .2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .form-submit:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+  /* EQUIPE */
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; }
+  .team-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px; text-align: center;
+    transition: transform .3s;
+  }
+  .team-card:hover { transform: translateY(-4px); }
+  .team-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+  }
+  .team-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .team-role { color: var(--teal); font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+  .team-bio { color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+  /* DEPOIMENTOS */
+  .depo-section { background: var(--teal-pale); }
+  .depo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .depo-card {
+    background: var(--white); border-radius: 16px; padding: 32px;
+    border: 1px solid var(--border);
+  }
+  .stars { color: var(--gold); font-size: 18px; margin-bottom: 16px; }
+  .depo-text { color: var(--text); font-size: 15px; line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+  .depo-author { display: flex; align-items: center; gap: 12px; }
+  .depo-av { width: 44px; height: 44px; border-radius: 50%; background: var(--teal); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .depo-name { font-weight: 600; font-size: 14px; }
+  .depo-since { font-size: 12px; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.6);
+    padding: 60px; display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+  }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 22px; color: #fff; margin-bottom: 16px; }
+  .footer-desc { font-size: 14px; line-height: 1.8; }
+  .footer-title { font-weight: 600; color: #fff; margin-bottom: 20px; font-size: 15px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: color .2s; }
+  .footer-links a:hover { color: var(--teal-light); }
+  .footer-bottom { background: rgba(0,0,0,0.2); padding: 20px 60px; color: rgba(255,255,255,0.4); font-size: 13px; text-align: center; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .hero, .section { padding: 100px 24px 60px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-image { height: 260px; font-size: 80px; }
+    .specs-grid, .team-grid, .depo-grid { grid-template-columns: 1fr; }
+    .agenda-inner { grid-template-columns: 1fr; gap: 40px; }
+    .agenda-section { padding: 80px 24px; }
+    footer { grid-template-columns: 1fr; padding: 40px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">🏥</div>
+    <div class="logo-name">Clínica Vida Plena <span>Cuidado com excelência</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#especialidades">Especialidades</a></li>
+    <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
+  </ul>
+  <a href="#agendar" class="nav-btn">Agendar Consulta</a>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-badge">✅ Atendimento de segunda a sábado</div>
+    <h1>Sua saúde em <em>boas mãos</em> com cuidado humano</h1>
+    <p>Oferecemos atendimento médico especializado com tecnologia moderna e um time dedicado ao seu bem-estar. Agende sua consulta hoje mesmo.</p>
+    <div class="hero-actions">
+      <a href="#agendar" class="btn-teal">Agendar Consulta</a>
+      <a href="#especialidades" class="btn-outline">Ver Especialidades</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hstat-num">12+</div><div class="hstat-label">Especialidades</div></div>
+      <div><div class="hstat-num">8k+</div><div class="hstat-label">Pacientes atendidos</div></div>
+      <div><div class="hstat-num">15</div><div class="hstat-label">Anos de experiência</div></div>
+    </div>
+  </div>
+  <div class="hero-image">🏥</div>
+</section>
+
+<section class="section" id="especialidades">
+  <div class="sec-label">O que oferecemos</div>
+  <h2 class="sec-title">Nossas Especialidades</h2>
+  <p class="sec-sub">Contamos com profissionais altamente qualificados nas principais áreas da medicina.</p>
+  <div class="specs-grid">
+    <div class="spec-card">
+      <div class="spec-icon">❤️</div>
+      <div class="spec-name">Cardiologia</div>
+      <div class="spec-desc">Cuidado completo do coração com exames modernos, prevenção e tratamento de doenças cardiovasculares.</div>
+      <a href="#agendar" class="spec-link">Agendar →</a>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">🧠</div>
+      <div class="spec-name">Neurologia</div>
+      <div class="spec-desc">Diagnóstico e tratamento de doenças neurológicas com equipamentos de última geração.</div>
+      <a href="#agendar" class="spec-link">Agendar →</a>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">🦴</div>
+      <div class="spec-name">Ortopedia</div>
+      <div class="spec-desc">Tratamento de lesões ósseas, musculares e articulares com abordagem multidisciplinar.</div>
+      <a href="#agendar" class="spec-link">Agendar →</a>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">👁️</div>
+      <div class="spec-name">Oftalmologia</div>
+      <div class="spec-desc">Exames de visão, cirurgias e tratamento de doenças oculares com tecnologia avançada.</div>
+      <a href="#agendar" class="spec-link">Agendar →</a>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">🌿</div>
+      <div class="spec-name">Clínica Geral</div>
+      <div class="spec-desc">Atendimento primário, check-up completo, prevenção e encaminhamento para especialistas.</div>
+      <a href="#agendar" class="spec-link">Agendar →</a>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">🍼</div>
+      <div class="spec-name">Pediatria</div>
+      <div class="spec-desc">Acompanhamento do crescimento e saúde de crianças e adolescentes com carinho e expertise.</div>
+      <a href="#agendar" class="spec-link">Agendar →</a>
+    </div>
+  </div>
+</section>
+
+<section class="agenda-section" id="agendar">
+  <div class="agenda-inner">
+    <div class="agenda-text">
+      <div class="sec-label">Agendamento Online</div>
+      <h2 class="sec-title">Agende sua consulta em minutos</h2>
+      <p>Sem filas, sem espera. Escolha a especialidade, o horário que melhor se encaixa na sua agenda e pronto. Confirmação por WhatsApp.</p>
+    </div>
+    <div class="agenda-form">
+      <div class="form-title">Preencha seus dados</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" placeholder="Seu nome">
+        </div>
+        <div class="form-group">
+          <label>Telefone / WhatsApp</label>
+          <input type="tel" placeholder="(00) 00000-0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Especialidade</label>
+        <select>
+          <option>Selecione a especialidade</option>
+          <option>Cardiologia</option>
+          <option>Neurologia</option>
+          <option>Ortopedia</option>
+          <option>Oftalmologia</option>
+          <option>Clínica Geral</option>
+          <option>Pediatria</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Data preferida</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Período</label>
+          <select>
+            <option>Manhã (8h–12h)</option>
+            <option>Tarde (13h–18h)</option>
+          </select>
+        </div>
+      </div>
+      <button class="form-submit">Solicitar Agendamento</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="equipe">
+  <div class="sec-label">Nossos médicos</div>
+  <h2 class="sec-title">Equipe Especializada</h2>
+  <p class="sec-sub">Profissionais com anos de experiência e dedicação ao cuidado humano.</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">👨‍⚕️</div>
+      <div class="team-name">Dr. Carlos Mendes</div>
+      <div class="team-role">Cardiologista • CRM 12345</div>
+      <div class="team-bio">15 anos de experiência em cardiologia intervencionista. Especialização em Harvard Medical School.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">👩‍⚕️</div>
+      <div class="team-name">Dra. Ana Rodrigues</div>
+      <div class="team-role">Neurologista • CRM 67890</div>
+      <div class="team-bio">Especialista em neurologia clínica e doenças neurodegenerativas. Doutora pela USP.</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">👨‍⚕️</div>
+      <div class="team-name">Dr. Paulo Ferreira</div>
+      <div class="team-role">Ortopedista • CRM 11223</div>
+      <div class="team-bio">Referência em cirurgia de joelho e quadril. Mais de 2.000 cirurgias realizadas com sucesso.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section depo-section" id="depoimentos">
+  <div class="sec-label">Depoimentos</div>
+  <h2 class="sec-title">O que nossos pacientes dizem</h2>
+  <div class="depo-grid">
+    <div class="depo-card">
+      <div class="stars">★★★★★</div>
+      <div class="depo-text">"Atendimento impecável. Os médicos são muito atenciosos e o ambiente é super acolhedor. Me sinto segura em cada consulta."</div>
+      <div class="depo-author">
+        <div class="depo-av">👩</div>
+        <div><div class="depo-name">Maria Silva</div><div class="depo-since">Paciente há 3 anos</div></div>
+      </div>
+    </div>
+    <div class="depo-card">
+      <div class="stars">★★★★★</div>
+      <div class="depo-text">"Consegui agendar pelo site em menos de 2 minutos. O Dr. Carlos me atendeu com muita atenção e resolveu meu problema rapidamente."</div>
+      <div class="depo-author">
+        <div class="depo-av">👨</div>
+        <div><div class="depo-name">João Oliveira</div><div class="depo-since">Paciente há 1 ano</div></div>
+      </div>
+    </div>
+    <div class="depo-card">
+      <div class="stars">★★★★★</div>
+      <div class="depo-text">"Trouxe minha filha para a pediatria e fui muito bem atendida. Equipe competente, instalações limpas e modernas. Indico para todos!"</div>
+      <div class="depo-author">
+        <div class="depo-av">👩</div>
+        <div><div class="depo-name">Fernanda Costa</div><div class="depo-since">Paciente há 2 anos</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">🏥 Clínica Vida Plena</div>
+    <div class="footer-desc">Cuidando da sua saúde com excelência, tecnologia e humanidade há mais de 15 anos.</div>
+  </div>
+  <div>
+    <div class="footer-title">Especialidades</div>
+    <ul class="footer-links">
+      <li><a href="#">Cardiologia</a></li>
+      <li><a href="#">Neurologia</a></li>
+      <li><a href="#">Ortopedia</a></li>
+      <li><a href="#">Oftalmologia</a></li>
+      <li><a href="#">Pediatria</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-title">Contato</div>
+    <ul class="footer-links">
+      <li><a href="#">📞 (11) 3456-7890</a></li>
+      <li><a href="#">📱 WhatsApp</a></li>
+      <li><a href="#">📧 contato@vidaplena.com</a></li>
+      <li><a href="#">📍 Rua da Saúde, 100</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">© 2025 Clínica Vida Plena. Todos os direitos reservados.</div>
+
+</body>
+</html>

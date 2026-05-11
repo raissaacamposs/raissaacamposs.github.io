@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia Kings</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0d0d0d;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --text: #f0ede6;
+    --muted: #888;
+    --border: rgba(201,168,76,0.15);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,13,13,0.95); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px; height: 70px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); letter-spacing: 2px; text-decoration: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-btn {
+    background: var(--gold); color: #000;
+    padding: 10px 24px; border-radius: 4px;
+    text-decoration: none; font-size: 13px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: background .2s, transform .2s;
+  }
+  .nav-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d0d0d 0%, #1a1205 50%, #0d0d0d 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '✂';
+    position: absolute; font-size: 600px;
+    color: rgba(201,168,76,0.03);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid var(--border);
+    padding: 8px 20px; border-radius: 2px;
+    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 32px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 14vw, 160px);
+    line-height: 0.9; letter-spacing: 4px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .hero h1 .gold { color: var(--gold); }
+  .hero-sub {
+    font-size: 18px; color: var(--muted); max-width: 500px;
+    margin: 32px auto 48px; line-height: 1.7; font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-gold {
+    background: var(--gold); color: #000;
+    padding: 16px 40px; border-radius: 4px;
+    text-decoration: none; font-weight: 700; font-size: 14px;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: background .2s, transform .2s;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-border {
+    border: 1px solid var(--border); color: var(--text);
+    padding: 16px 40px; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 14px;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-border:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0; }
+
+  /* SERVIÇOS */
+  .section { padding: 100px 60px; }
+  .sec-header { text-align: center; margin-bottom: 64px; }
+  .sec-tag { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; font-weight: 500; }
+  .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); letter-spacing: 2px; }
+  .sec-sub { color: var(--muted); font-size: 16px; margin-top: 16px; font-weight: 300; }
+
+  .servicos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .servico-item {
+    background: var(--bg2); padding: 44px 36px;
+    transition: background .3s;
+    position: relative; overflow: hidden;
+  }
+  .servico-item::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold); transform: scaleX(0); transition: transform .3s;
+  }
+  .servico-item:hover { background: var(--bg3); }
+  .servico-item:hover::before { transform: scaleX(1); }
+  .servico-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: rgba(201,168,76,0.2); margin-bottom: 16px; }
+  .servico-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; margin-bottom: 12px; }
+  .servico-desc { color: var(--muted); font-size: 14px; line-height: 1.7; font-weight: 300; margin-bottom: 24px; }
+  .servico-price { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--gold); }
+  .servico-price span { font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--muted); font-weight: 300; }
+
+  /* GALERIA */
+  .galeria-section { background: var(--bg2); }
+  .galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 200px 200px;
+    gap: 8px; margin-top: 64px;
+  }
+  .gal-item {
+    border-radius: 4px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px; transition: transform .3s; cursor: pointer;
+  }
+  .gal-item:hover { transform: scale(1.02); }
+  .gal-item:nth-child(1) { grid-column: span 2; background: linear-gradient(135deg, #1a1205, #2d2010); }
+  .gal-item:nth-child(2) { background: linear-gradient(135deg, #0f0f0f, #1e1a10); }
+  .gal-item:nth-child(3) { background: linear-gradient(135deg, #12100a, #1e1a10); }
+  .gal-item:nth-child(4) { background: linear-gradient(135deg, #0f0f0f, #1a1205); }
+  .gal-item:nth-child(5) { grid-column: span 2; background: linear-gradient(135deg, #1a1205, #0d0d0d); }
+
+  /* EQUIPE */
+  .equipe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+  .barber-card {
+    border: 1px solid var(--border); border-radius: 4px;
+    overflow: hidden; transition: border-color .3s;
+  }
+  .barber-card:hover { border-color: var(--gold); }
+  .barber-photo {
+    height: 220px; background: linear-gradient(135deg, #1a1205, #2d1b00);
+    display: flex; align-items: center; justify-content: center; font-size: 72px;
+  }
+  .barber-info { padding: 28px; }
+  .barber-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; margin-bottom: 6px; }
+  .barber-role { color: var(--gold); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; font-weight: 500; margin-bottom: 12px; }
+  .barber-bio { color: var(--muted); font-size: 13px; line-height: 1.7; font-weight: 300; }
+
+  /* AGENDAR */
+  .agendar-section {
+    background: linear-gradient(135deg, #1a1205 0%, #0d0d0d 100%);
+    text-align: center; padding: 100px 60px;
+  }
+  .agendar-section .sec-title { color: var(--text); }
+  .agendar-section p { color: var(--muted); font-size: 17px; max-width: 480px; margin: 20px auto 48px; line-height: 1.8; font-weight: 300; }
+  .wpp-btn {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: #25D366; color: #fff;
+    padding: 18px 44px; border-radius: 4px;
+    text-decoration: none; font-weight: 700; font-size: 16px;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.3);
+  }
+  .wpp-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(37,211,102,0.4); }
+
+  /* HORÁRIOS */
+  .horarios-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 600px; margin: 64px auto 0; }
+  .horario-item {
+    border: 1px solid var(--border); padding: 24px 28px;
+    border-radius: 4px; display: flex; justify-content: space-between; align-items: center;
+    background: var(--bg2);
+  }
+  .hor-dia { font-weight: 600; font-size: 14px; }
+  .hor-time { color: var(--gold); font-size: 14px; font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    background: #080808; border-top: 1px solid var(--border);
+    padding: 60px; display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 60px;
+  }
+  .foot-logo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--gold); letter-spacing: 3px; margin-bottom: 16px; }
+  .foot-desc { color: var(--muted); font-size: 14px; line-height: 1.8; font-weight: 300; }
+  .foot-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; margin-bottom: 20px; }
+  .foot-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .foot-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+  .foot-links a:hover { color: var(--gold); }
+  .foot-bottom { background: #050505; padding: 20px 60px; text-align: center; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .hero, .section { padding: 100px 24px 60px; }
+    .servicos-grid, .equipe-grid { grid-template-columns: 1fr; }
+    .galeria-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gal-item:nth-child(1), .gal-item:nth-child(5) { grid-column: span 1; }
+    .horarios-grid { grid-template-columns: 1fr; max-width: 100%; }
+    footer { grid-template-columns: 1fr; padding: 40px 24px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Kings ✂</a>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#equipe">Barbeiros</a></li>
+  </ul>
+  <a href="#agendar" class="nav-btn">Agendar</a>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-tag">✦ Desde 2015 ✦</div>
+    <h1><span class="gold">Kings</span><br>Barbearia</h1>
+    <p class="hero-sub">Onde estilo encontra tradição. Cortes precisos, barba impecável e uma experiência que você não vai esquecer.</p>
+    <div class="hero-actions">
+      <a href="#agendar" class="btn-gold">Agendar Horário</a>
+      <a href="#servicos" class="btn-border">Ver Serviços</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="servicos">
+  <div class="sec-header">
+    <div class="sec-tag">O que fazemos</div>
+    <div class="sec-title">Nossos Serviços</div>
+    <div class="sec-sub">Cada detalhe importa. Do corte à barba, entregamos o melhor.</div>
+  </div>
+  <div class="servicos-grid">
+    <div class="servico-item">
+      <div class="servico-num">01</div>
+      <div class="servico-name">Corte Tradicional</div>
+      <div class="servico-desc">Corte clássico com tesoura e máquina. Finalização com produtos premium e estilo atemporal.</div>
+      <div class="servico-price">R$ 45 <span>/ por sessão</span></div>
+    </div>
+    <div class="servico-item">
+      <div class="servico-num">02</div>
+      <div class="servico-name">Corte + Barba</div>
+      <div class="servico-desc">O combo perfeito. Corte preciso e barba modelada com navalha. Visual completo e sofisticado.</div>
+      <div class="servico-price">R$ 75 <span>/ por sessão</span></div>
+    </div>
+    <div class="servico-item">
+      <div class="servico-num">03</div>
+      <div class="servico-name">Barba Completa</div>
+      <div class="servico-desc">Aparagem, modelagem e finalização com óleos e balms especiais para barba perfeita.</div>
+      <div class="servico-price">R$ 40 <span>/ por sessão</span></div>
+    </div>
+    <div class="servico-item">
+      <div class="servico-num">04</div>
+      <div class="servico-name">Pigmentação</div>
+      <div class="servico-desc">Disfarce de falhas na barba com pigmentação natural. Resultado duradouro e natural.</div>
+      <div class="servico-price">R$ 90 <span>/ por sessão</span></div>
+    </div>
+    <div class="servico-item">
+      <div class="servico-num">05</div>
+      <div class="servico-name">Hidratação</div>
+      <div class="servico-desc">Tratamento profundo para cabelo e barba. Nutrição intensa com produtos importados.</div>
+      <div class="servico-price">R$ 60 <span>/ por sessão</span></div>
+    </div>
+    <div class="servico-item">
+      <div class="servico-num">06</div>
+      <div class="servico-name">Pacote Kings</div>
+      <div class="servico-desc">Corte + Barba + Hidratação + Sobrancelha. A experiência completa de um verdadeiro rei.</div>
+      <div class="servico-price">R$ 130 <span>/ por sessão</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section galeria-section" id="galeria">
+  <div class="sec-header">
+    <div class="sec-tag">Nosso trabalho</div>
+    <div class="sec-title">Galeria</div>
+    <div class="sec-sub">Cada corte é uma obra de arte. Confira alguns dos nossos trabalhos.</div>
+  </div>
+  <div class="galeria-grid">
+    <div class="gal-item">✂️</div>
+    <div class="gal-item">💈</div>
+    <div class="gal-item">🪒</div>
+    <div class="gal-item">👑</div>
+    <div class="gal-item">✨</div>
+  </div>
+</section>
+
+<section class="section" id="equipe">
+  <div class="sec-header">
+    <div class="sec-tag">Nossa equipe</div>
+    <div class="sec-title">Os Barbeiros</div>
+    <div class="sec-sub">Profissionais apaixonados pela arte da barbearia.</div>
+  </div>
+  <div class="equipe-grid">
+    <div class="barber-card">
+      <div class="barber-photo">👨‍🦱</div>
+      <div class="barber-info">
+        <div class="barber-name">Marcus King</div>
+        <div class="barber-role">Master Barber • Fundador</div>
+        <div class="barber-bio">10 anos de experiência. Especialista em cortes clássicos e fade. Já atendeu celebridades e atletas.</div>
+      </div>
+    </div>
+    <div class="barber-card">
+      <div class="barber-photo">👨‍🦲</div>
+      <div class="barber-info">
+        <div class="barber-name">Diego Santos</div>
+        <div class="barber-role">Senior Barber</div>
+        <div class="barber-bio">Especialista em barba e pigmentação. Formado em São Paulo com cursos internacionais na Espanha.</div>
+      </div>
+    </div>
+    <div class="barber-card">
+      <div class="barber-photo">🧔</div>
+      <div class="barber-info">
+        <div class="barber-name">Rafael Lima</div>
+        <div class="barber-role">Barber • Especialista Afro</div>
+        <div class="barber-bio">Referência em cabelos crespos e cacheados. Arte em cada corte com técnica e criatividade únicas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="agendar-section" id="agendar">
+  <div class="sec-tag">Venha nos visitar</div>
+  <div class="sec-title">Agende seu horário</div>
+  <p>Não perca tempo em fila. Agende pelo WhatsApp e chegue no horário certo para ser atendido como um rei.</p>
+  <a href="https://wa.me/5500000000000" class="wpp-btn">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Agendar pelo WhatsApp
+  </a>
+  <div class="horarios-grid">
+    <div class="horario-item"><span class="hor-dia">Segunda — Sexta</span><span class="hor-time">09h às 20h</span></div>
+    <div class="horario-item"><span class="hor-dia">Sábado</span><span class="hor-time">08h às 18h</span></div>
+    <div class="horario-item"><span class="hor-dia">Domingo</span><span class="hor-time">10h às 15h</span></div>
+    <div class="horario-item"><span class="hor-dia">Feriados</span><span class="hor-time">10h às 16h</span></div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="foot-logo">Kings ✂</div>
+    <div class="foot-desc">Barbearia premium no coração da cidade. Tradição, estilo e excelência desde 2015.</div>
+  </div>
+  <div>
+    <div class="foot-title">Serviços</div>
+    <ul class="foot-links">
+      <li><a href="#">Corte Tradicional</a></li>
+      <li><a href="#">Corte + Barba</a></li>
+      <li><a href="#">Barba Completa</a></li>
+      <li><a href="#">Pigmentação</a></li>
+      <li><a href="#">Pacote Kings</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="foot-title">Contato</div>
+    <ul class="foot-links">
+      <li><a href="#">📱 WhatsApp</a></li>
+      <li><a href="#">📸 Instagram</a></li>
+      <li><a href="#">📍 Rua dos Reis, 42</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="foot-bottom">© 2025 Barbearia Kings. Todos os direitos reservados.</div>
+
+</body>
+</html>

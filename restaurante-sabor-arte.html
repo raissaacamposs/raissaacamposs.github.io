@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sabor & Arte | Restaurante</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0c0906;
+    --bg2: #120e09;
+    --bg3: #1a1410;
+    --cream: #f5ede0;
+    --cream2: #e8d5b7;
+    --red: #c0392b;
+    --red-dark: #96281f;
+    --gold: #d4a849;
+    --text: #f0e8d8;
+    --muted: #9a8872;
+    --border: rgba(212,168,73,0.15);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 60px; height: 76px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(12,9,6,0.9); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { text-decoration: none; }
+  .logo-main { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--cream); letter-spacing: 1px; }
+  .logo-main em { color: var(--gold); font-style: italic; }
+  .logo-sub { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; letter-spacing: 1px; transition: color .2s; }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-reserve {
+    border: 1px solid var(--gold); color: var(--gold);
+    padding: 10px 24px; border-radius: 2px;
+    text-decoration: none; font-size: 13px; letter-spacing: 1px;
+    transition: background .2s, color .2s;
+  }
+  .nav-reserve:hover { background: var(--gold); color: var(--bg); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(180deg, rgba(12,9,6,0.3) 0%, rgba(12,9,6,0.7) 60%, var(--bg) 100%),
+                radial-gradient(ellipse at center, #2d1a08 0%, #0c0906 70%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 60px 100px;
+    position: relative; overflow: hidden;
+  }
+  .hero-ornament {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(192,57,43,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(212,168,73,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 820px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--gold); font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 32px; font-weight: 500;
+  }
+  .hero-badge::before, .hero-badge::after {
+    content: '✦'; font-size: 10px;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 10vw, 120px);
+    line-height: 0.9; font-weight: 700;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+  }
+  .hero h1 em { display: block; color: var(--gold); font-style: italic; }
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-style: italic; color: var(--muted);
+    margin-bottom: 48px; line-height: 1.6;
+  }
+  .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-red {
+    background: var(--red); color: #fff;
+    padding: 16px 40px; border-radius: 2px;
+    text-decoration: none; font-weight: 500; font-size: 14px;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: background .2s, transform .2s;
+    box-shadow: 0 8px 24px rgba(192,57,43,0.3);
+  }
+  .btn-red:hover { background: var(--red-dark); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid var(--border); color: var(--cream);
+    padding: 16px 40px; border-radius: 2px;
+    text-decoration: none; font-weight: 400; font-size: 14px;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); background: rgba(212,168,73,0.06); }
+
+  .hero-info { display: flex; gap: 48px; justify-content: center; margin-top: 72px; padding-top: 48px; border-top: 1px solid var(--border); }
+  .info-item { text-align: center; }
+  .info-icon { font-size: 22px; margin-bottom: 8px; }
+  .info-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .info-val { font-size: 15px; color: var(--cream); font-weight: 500; }
+
+  /* SOBRE */
+  .section { padding: 100px 60px; }
+  .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+  .sec-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-weight: 500; }
+  .sec-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 700; line-height: 1.1; margin-bottom: 24px; }
+  .sec-title em { color: var(--gold); font-style: italic; }
+  .sobre-text p { color: var(--muted); font-size: 16px; line-height: 1.9; font-weight: 300; margin-bottom: 20px; }
+  .sobre-destaque {
+    border-left: 2px solid var(--gold);
+    padding: 20px 24px; margin: 32px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-style: italic; color: var(--cream2);
+    background: rgba(212,168,73,0.04);
+  }
+  .sobre-image {
+    height: 520px; border-radius: 4px;
+    background: linear-gradient(135deg, #2c1810, #8b2500, #1a0f00);
+    display: flex; align-items: center; justify-content: center; font-size: 100px;
+    position: relative; overflow: hidden;
+  }
+  .sobre-image::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(192,57,43,0.2) 0%, transparent 60%);
+  }
+
+  /* CARDÁPIO */
+  .cardapio-section { background: var(--bg2); }
+  .cardapio-tabs {
+    display: flex; gap: 0; margin-top: 56px; border-bottom: 1px solid var(--border);
+  }
+  .tab-btn {
+    background: none; border: none; border-bottom: 2px solid transparent;
+    color: var(--muted); padding: 14px 32px; cursor: pointer;
+    font-family: 'Jost', sans-serif; font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 500; transition: color .2s, border-color .2s;
+    margin-bottom: -1px;
+  }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .tab-btn:hover { color: var(--cream); }
+
+  .cardapio-panel { display: none; padding-top: 48px; }
+  .cardapio-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+  .prato-item {
+    background: var(--bg2); padding: 32px;
+    display: flex; gap: 20px; transition: background .2s;
+  }
+  .prato-item:hover { background: var(--bg3); }
+  .prato-emoji { font-size: 40px; flex-shrink: 0; }
+  .prato-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+  .prato-desc { color: var(--muted); font-size: 13px; line-height: 1.7; font-weight: 300; margin-bottom: 12px; }
+  .prato-price { color: var(--gold); font-size: 18px; font-weight: 600; font-family: 'Cormorant Garamond', serif; }
+
+  /* RESERVA */
+  .reserva-section {
+    background: linear-gradient(135deg, #1a0f00 0%, #2c1810 50%, #0c0906 100%);
+    padding: 100px 60px;
+  }
+  .reserva-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .reserva-text .sec-title { font-size: clamp(32px, 4vw, 56px); }
+  .reserva-text p { color: var(--muted); font-size: 16px; line-height: 1.8; margin-top: 20px; font-weight: 300; }
+
+  .reserva-form { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 44px; }
+  .form-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; margin-bottom: 32px; color: var(--cream); }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 500; }
+  .form-group input, .form-group select {
+    width: 100%; padding: 14px 16px;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 2px; color: var(--cream);
+    font-family: 'Jost', sans-serif; font-size: 14px; outline: none;
+    transition: border-color .2s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-group select option { background: var(--bg2); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-submit {
+    width: 100%; background: var(--red); color: #fff;
+    border: none; padding: 16px; border-radius: 2px;
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+    transition: background .2s, transform .2s; margin-top: 8px;
+  }
+  .form-submit:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+  /* CHEF */
+  .chef-section { display: grid; grid-template-columns: 1fr 1fr; }
+  .chef-image {
+    background: linear-gradient(135deg, #1a0f00, #3d1f0e);
+    display: flex; align-items: center; justify-content: center; font-size: 120px;
+    min-height: 500px;
+  }
+  .chef-text { background: var(--bg3); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; }
+  .chef-text .sec-title { margin-bottom: 16px; }
+  .chef-name { color: var(--gold); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; }
+  .chef-bio { color: var(--muted); font-size: 15px; line-height: 1.9; font-weight: 300; }
+  .chef-awards { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .award { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--cream2); }
+  .award::before { content: '★'; color: var(--gold); }
+
+  /* FOOTER */
+  footer { background: #050301; border-top: 1px solid var(--border); padding: 80px 60px 40px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid var(--border); }
+  .foot-brand { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--cream); margin-bottom: 16px; }
+  .foot-brand em { color: var(--gold); font-style: italic; }
+  .foot-desc { color: var(--muted); font-size: 14px; line-height: 1.8; font-weight: 300; }
+  .foot-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-weight: 500; }
+  .foot-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .foot-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+  .foot-links a:hover { color: var(--cream); }
+  .footer-bottom { padding-top: 32px; text-align: center; color: var(--muted); font-size: 13px; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .hero, .section { padding: 100px 24px 60px; }
+    .sobre-grid, .reserva-inner { grid-template-columns: 1fr; gap: 40px; }
+    .sobre-image { height: 280px; font-size: 80px; }
+    .cardapio-panel.active { grid-template-columns: 1fr; }
+    .chef-section { grid-template-columns: 1fr; }
+    .chef-image { min-height: 260px; }
+    .chef-text { padding: 40px 24px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .hero-info { flex-direction: column; gap: 24px; }
+    .nav-links { display: none; }
+    .reserva-section { padding: 80px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-main">Sabor <em>&</em> Arte</div>
+    <div class="logo-sub">Restaurante & Bistrô</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#cardapio">Cardápio</a></li>
+    <li><a href="#chef">Chef</a></li>
+    <li><a href="#reserva">Reservas</a></li>
+  </ul>
+  <a href="#reserva" class="nav-reserve">Reservar Mesa</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-ornament"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Gastronomia Contemporânea</div>
+    <h1>Sabor<em>& Arte</em></h1>
+    <div class="hero-tagline">"Onde cada prato é uma experiência que permanece na memória"</div>
+    <div class="hero-actions">
+      <a href="#reserva" class="btn-red">Reservar Mesa</a>
+      <a href="#cardapio" class="btn-outline">Ver Cardápio</a>
+    </div>
+    <div class="hero-info">
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div class="info-label">Localização</div>
+        <div class="info-val">Centro Histórico</div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">🕐</div>
+        <div class="info-label">Horário</div>
+        <div class="info-val">Ter–Dom, 12h às 23h</div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div class="info-label">Reservas</div>
+        <div class="info-val">(11) 98765-4321</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sobre">
+  <div class="sobre-grid">
+    <div class="sobre-image">🍽️</div>
+    <div class="sobre-text">
+      <div class="sec-tag">Nossa história</div>
+      <h2 class="sec-title">Uma paixão pela <em>boa mesa</em></h2>
+      <p>Fundado em 2012, o Sabor & Arte nasceu do sonho de criar um espaço onde a gastronomia contemporânea encontra a alma da culinária brasileira. Cada prato é uma declaração de amor à comida de verdade.</p>
+      <div class="sobre-destaque">"Cozinhar é transformar ingredientes simples em emoções complexas."</div>
+      <p>Nossa cozinha trabalha com ingredientes sazonais, priorizando produtores locais e técnicas que preservam o sabor autêntico de cada elemento.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section cardapio-section" id="cardapio">
+  <div class="sec-tag">O que servimos</div>
+  <h2 class="sec-title">Nosso <em>Cardápio</em></h2>
+  <div class="cardapio-tabs">
+    <button class="tab-btn active" onclick="showTab('entradas', this)">Entradas</button>
+    <button class="tab-btn" onclick="showTab('principais', this)">Pratos Principais</button>
+    <button class="tab-btn" onclick="showTab('sobremesas', this)">Sobremesas</button>
+    <button class="tab-btn" onclick="showTab('bebidas', this)">Bebidas</button>
+  </div>
+
+  <div id="entradas" class="cardapio-panel active">
+    <div class="prato-item"><div class="prato-emoji">🥗</div><div><div class="prato-name">Burrata ao Pesto</div><div class="prato-desc">Burrata cremosa com pesto de manjericão, tomates confitados e croutons artesanais.</div><div class="prato-price">R$ 52</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🦐</div><div><div class="prato-name">Tartar de Salmão</div><div class="prato-desc">Salmão fresco marinado com alcaparras, cebola roxa e molho de maracujá.</div><div class="prato-price">R$ 68</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🍄</div><div><div class="prato-name">Carpaccio de Cogumelos</div><div class="prato-desc">Cogumelos frescos laminados com azeite trufado, parmesão e rúcula selvagem.</div><div class="prato-price">R$ 48</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🥩</div><div><div class="prato-name">Foie Gras Grelhado</div><div class="prato-desc">Foie gras selado com redução de vinho do porto, frutas vermelhas e brioche.</div><div class="prato-price">R$ 92</div></div></div>
+  </div>
+
+  <div id="principais" class="cardapio-panel">
+    <div class="prato-item"><div class="prato-emoji">🥩</div><div><div class="prato-name">Filé ao Molho de Trufas</div><div class="prato-desc">Filé mignon grelhado ao ponto com molho de trufas negras e batata rosti.</div><div class="prato-price">R$ 148</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🐟</div><div><div class="prato-name">Robalo à Mediterrânea</div><div class="prato-desc">Robalo assado com ervas frescas, legumes grelhados e azeite de limão.</div><div class="prato-price">R$ 128</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🍝</div><div><div class="prato-name">Risoto de Camarão</div><div class="prato-desc">Arroz arbóreo cremoso com camarão VG, açafrão e finalização de parmesão.</div><div class="prato-price">R$ 112</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🦆</div><div><div class="prato-name">Magret de Pato</div><div class="prato-desc">Peito de pato confitado com purê de batata doce e redução de laranja.</div><div class="prato-price">R$ 138</div></div></div>
+  </div>
+
+  <div id="sobremesas" class="cardapio-panel">
+    <div class="prato-item"><div class="prato-emoji">🍮</div><div><div class="prato-name">Crème Brûlée de Baunilha</div><div class="prato-desc">Clássico francês com fava de baunilha de Madagascar e açúcar caramelizado.</div><div class="prato-price">R$ 38</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🍫</div><div><div class="prato-name">Fondant de Chocolate</div><div class="prato-desc">Bolo de chocolate 70% cacau com coração líquido e sorvete de creme.</div><div class="prato-price">R$ 44</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🍓</div><div><div class="prato-name">Pavlova de Frutas Vermelhas</div><div class="prato-desc">Merengue crocante com chantilly e coulis de frutas vermelhas frescas.</div><div class="prato-price">R$ 36</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🍨</div><div><div class="prato-name">Sorvete Artesanal</div><div class="prato-desc">Três bolas de sorvete artesanal produzido diariamente na nossa cozinha.</div><div class="prato-price">R$ 28</div></div></div>
+  </div>
+
+  <div id="bebidas" class="cardapio-panel">
+    <div class="prato-item"><div class="prato-emoji">🍷</div><div><div class="prato-name">Carta de Vinhos</div><div class="prato-desc">Seleção de rótulos nacionais e importados. Consulte nosso sommelier.</div><div class="prato-price">A partir de R$ 85</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🍸</div><div><div class="prato-name">Drinques Autorais</div><div class="prato-desc">Coquetéis exclusivos criados pelo nosso barman com ingredientes sazonais.</div><div class="prato-price">A partir de R$ 32</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">🫖</div><div><div class="prato-name">Chás Especiais</div><div class="prato-desc">Blend exclusivo de chás importados servidos em bule de porcelana.</div><div class="prato-price">R$ 18</div></div></div>
+    <div class="prato-item"><div class="prato-emoji">☕</div><div><div class="prato-name">Cafés de Origem</div><div class="prato-desc">Grãos especiais de diferentes regiões do Brasil, preparados no método Chemex.</div><div class="prato-price">A partir de R$ 14</div></div></div>
+  </div>
+</section>
+
+<section class="chef-section" id="chef">
+  <div class="chef-image">👨‍🍳</div>
+  <div class="chef-text">
+    <div class="sec-tag">Por trás dos pratos</div>
+    <h2 class="sec-title">Chef <em>Renato Alves</em></h2>
+    <div class="chef-name">Executive Chef & Co-fundador</div>
+    <div class="chef-bio">Com mais de 20 anos de experiência nas melhores cozinhas do Brasil e da Europa, o Chef Renato traz uma visão única que respeita as raízes da culinária brasileira enquanto incorpora técnicas contemporâneas aprendidas em Paris, Barcelona e Milão.</div>
+    <div class="chef-awards">
+      <div class="award">Prêmio Veja Comer & Beber 2023 — Melhor Restaurante</div>
+      <div class="award">Guia Michelin — Restaurante Recomendado</div>
+      <div class="award">Top 50 Chefs do Brasil — Revista Gula</div>
+    </div>
+  </div>
+</section>
+
+<section class="reserva-section" id="reserva">
+  <div class="reserva-inner">
+    <div class="reserva-text">
+      <div class="sec-tag">Reserve sua experiência</div>
+      <h2 class="sec-title">Uma noite <em>inesquecível</em></h2>
+      <p>Reserve sua mesa com antecedência e garanta a melhor experiência. Disponível para grupos, eventos privados e ocasiões especiais.</p>
+    </div>
+    <div class="reserva-form">
+      <div class="form-title">Fazer Reserva</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" placeholder="Seu nome completo">
+        </div>
+        <div class="form-group">
+          <label>Telefone</label>
+          <input type="tel" placeholder="(00) 00000-0000">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Data</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Horário</label>
+          <select>
+            <option>12h00</option>
+            <option>13h00</option>
+            <option>19h00</option>
+            <option>20h00</option>
+            <option>21h00</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Número de pessoas</label>
+        <select>
+          <option>1–2 pessoas</option>
+          <option>3–4 pessoas</option>
+          <option>5–6 pessoas</option>
+          <option>7+ pessoas (evento)</option>
+        </select>
+      </div>
+      <button class="form-submit">Confirmar Reserva</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="foot-brand">Sabor <em>&</em> Arte</div>
+      <div class="foot-desc">Gastronomia contemporânea no coração da cidade. Uma experiência que vai além do prato.</div>
+    </div>
+    <div>
+      <div class="foot-title">Menu</div>
+      <ul class="foot-links">
+        <li><a href="#">Entradas</a></li>
+        <li><a href="#">Pratos Principais</a></li>
+        <li><a href="#">Sobremesas</a></li>
+        <li><a href="#">Carta de Vinhos</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-title">Informações</div>
+      <ul class="foot-links">
+        <li><a href="#">Nossa história</a></li>
+        <li><a href="#">O Chef</a></li>
+        <li><a href="#">Eventos</a></li>
+        <li><a href="#">Imprensa</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-title">Contato</div>
+      <ul class="foot-links">
+        <li><a href="#">📞 (11) 98765-4321</a></li>
+        <li><a href="#">📧 reservas@saborearte.com</a></li>
+        <li><a href="#">📍 Rua Gourmet, 200</a></li>
+        <li><a href="#">📸 Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Sabor & Arte. Todos os direitos reservados. — Ter a Dom, 12h às 23h</div>
+</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.cardapio-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
